@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbisTakibModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name=" TblPersonel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="30" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="30" />
+          <Property Name="Gorsel" Type="nvarchar" MaxLength="100" />
+          <Property Name="Departman" Type="int" />
+          <Property Name="Durum" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblAdminGiris">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kullanici" Type="nvarchar" MaxLength="10" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TblDepartmanlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblFirmalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="30" />
+          <Property Name="Yetkili" Type="nvarchar" MaxLength="30" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Baza" Type="nvarchar" MaxLength="50" />
+          <Property Name="il" Type="nvarchar" MaxLength="50" />
+          <Property Name="ilce" Type="nvarchar" MaxLength="50" />
+          <Property Name="Unvan" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblGorevDetaylar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="isitehvilveren" Type="int" />
+          <Property Name="cavab" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Saat" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="TblGorevler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsitehvilVeren" Type="int" />
+          <Property Name="IsitehvilAlan" Type="int" />
+          <Property Name="Veziyyet" Type="nvarchar" MaxLength="20" />
+          <Property Name="Durum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tarix" Type="date" />
+        </EntityType>
+        <Association Name="FK_TblGorevDetaylar_TblGorevler">
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="0..1" />
+          <End Role="TblGorevDetaylar" Type="Self.TblGorevDetaylar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblGorevler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevDetaylar">
+              <PropertyRef Name="isitehvilveren" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblGorevler_ TblPersonel">
+          <End Role=" TblPersonel" Type="Self. TblPersonel" Multiplicity="0..1" />
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role=" TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevler">
+              <PropertyRef Name="IsitehvilVeren" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblGorevler_ TblPersonel1">
+          <End Role=" TblPersonel" Type="Self. TblPersonel" Multiplicity="0..1" />
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role=" TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevler">
+              <PropertyRef Name="IsitehvilAlan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbisTakibModelStoreContainer">
+          <EntitySet Name=" TblPersonel" EntityType="Self. TblPersonel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblAdminGiris" EntityType="Self.TblAdminGiris" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblDepartmanlar" EntityType="Self.TblDepartmanlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblFirmalar" EntityType="Self.TblFirmalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblGorevDetaylar" EntityType="Self.TblGorevDetaylar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblGorevler" EntityType="Self.TblGorevler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblGorevDetaylar_TblGorevler" Association="Self.FK_TblGorevDetaylar_TblGorevler">
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+            <End Role="TblGorevDetaylar" EntitySet="TblGorevDetaylar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblGorevler_ TblPersonel" Association="Self.FK_TblGorevler_ TblPersonel">
+            <End Role=" TblPersonel" EntitySet=" TblPersonel" />
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblGorevler_ TblPersonel1" Association="Self.FK_TblGorevler_ TblPersonel1">
+            <End Role=" TblPersonel" EntitySet=" TblPersonel" />
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbisTakibModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblPersonel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Ad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Soyad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Gorsel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Departman" Type="Int32" />
+          <NavigationProperty Name="TblDepartmanlar" Relationship="Self.FK__TblPersonel_TblDepartmanlar" FromRole="C_TblPersonel" ToRole="TblDepartmanlar" />
+          <NavigationProperty Name="TblGorevler" Relationship="Self.FK_TblGorevler__TblPersonel" FromRole="C_TblPersonel" ToRole="TblGorevler" />
+          <NavigationProperty Name="TblGorevler1" Relationship="Self.FK_TblGorevler__TblPersonel1" FromRole="C_TblPersonel" ToRole="TblGorevler" />
+          <Property Name="Durum" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TblAdminGiris">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullanici" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblDepartmanlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_TblPersonel" Relationship="Self.FK__TblPersonel_TblDepartmanlar" FromRole="TblDepartmanlar" ToRole="C_TblPersonel" />
+        </EntityType>
+        <EntityType Name="TblFirmalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Yetkili" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Baza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="il" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ilce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Unvan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblGorevDetaylar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="isitehvilveren" Type="Int32" />
+          <Property Name="cavab" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Saat" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="TblGorevler" Relationship="Self.FK_TblGorevDetaylar_TblGorevler" FromRole="TblGorevDetaylar" ToRole="TblGorevler" />
+        </EntityType>
+        <EntityType Name="TblGorevler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsitehvilVeren" Type="Int32" />
+          <Property Name="IsitehvilAlan" Type="Int32" />
+          <Property Name="Veziyyet" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Durum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tarix" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="C_TblPersonel" Relationship="Self.FK_TblGorevler__TblPersonel" FromRole="TblGorevler" ToRole="C_TblPersonel" />
+          <NavigationProperty Name="C_TblPersonel1" Relationship="Self.FK_TblGorevler__TblPersonel1" FromRole="TblGorevler" ToRole="C_TblPersonel" />
+          <NavigationProperty Name="TblGorevDetaylar" Relationship="Self.FK_TblGorevDetaylar_TblGorevler" FromRole="TblGorevler" ToRole="TblGorevDetaylar" />
+        </EntityType>
+        <Association Name="FK__TblPersonel_TblDepartmanlar">
+          <End Role="TblDepartmanlar" Type="Self.TblDepartmanlar" Multiplicity="0..1" />
+          <End Role="C_TblPersonel" Type="DbisTakibModel.TblPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblDepartmanlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C_TblPersonel">
+              <PropertyRef Name="Departman" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblGorevler__TblPersonel">
+          <End Role="C_TblPersonel" Type="DbisTakibModel.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevler">
+              <PropertyRef Name="IsitehvilVeren" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblGorevler__TblPersonel1">
+          <End Role="C_TblPersonel" Type="DbisTakibModel.TblPersonel" Multiplicity="0..1" />
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_TblPersonel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevler">
+              <PropertyRef Name="IsitehvilAlan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblGorevDetaylar_TblGorevler">
+          <End Role="TblGorevler" Type="Self.TblGorevler" Multiplicity="0..1" />
+          <End Role="TblGorevDetaylar" Type="Self.TblGorevDetaylar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblGorevler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TblGorevDetaylar">
+              <PropertyRef Name="isitehvilveren" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbisTakibEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_TblPersonel" EntityType="DbisTakibModel.TblPersonel" />
+          <EntitySet Name="TblAdminGiris" EntityType="Self.TblAdminGiris" />
+          <EntitySet Name="TblDepartmanlar" EntityType="Self.TblDepartmanlar" />
+          <EntitySet Name="TblFirmalar" EntityType="Self.TblFirmalar" />
+          <EntitySet Name="TblGorevDetaylar" EntityType="Self.TblGorevDetaylar" />
+          <EntitySet Name="TblGorevler" EntityType="Self.TblGorevler" />
+          <AssociationSet Name="FK__TblPersonel_TblDepartmanlar" Association="Self.FK__TblPersonel_TblDepartmanlar">
+            <End Role="TblDepartmanlar" EntitySet="TblDepartmanlar" />
+            <End Role="C_TblPersonel" EntitySet="C_TblPersonel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblGorevler__TblPersonel" Association="Self.FK_TblGorevler__TblPersonel">
+            <End Role="C_TblPersonel" EntitySet="C_TblPersonel" />
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblGorevler__TblPersonel1" Association="Self.FK_TblGorevler__TblPersonel1">
+            <End Role="C_TblPersonel" EntitySet="C_TblPersonel" />
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblGorevDetaylar_TblGorevler" Association="Self.FK_TblGorevDetaylar_TblGorevler">
+            <End Role="TblGorevler" EntitySet="TblGorevler" />
+            <End Role="TblGorevDetaylar" EntitySet="TblGorevDetaylar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbisTakibModelStoreContainer" CdmEntityContainer="DbisTakibEntities">
+          <EntitySetMapping Name="C_TblPersonel">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblPersonel">
+              <MappingFragment StoreEntitySet=" TblPersonel">
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Gorsel" ColumnName="Gorsel" />
+                <ScalarProperty Name="Departman" ColumnName="Departman" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblAdminGiris">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblAdminGiris">
+              <MappingFragment StoreEntitySet="TblAdminGiris">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Kullanici" ColumnName="Kullanici" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblDepartmanlar">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblDepartmanlar">
+              <MappingFragment StoreEntitySet="TblDepartmanlar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblFirmalar">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblFirmalar">
+              <MappingFragment StoreEntitySet="TblFirmalar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Yetkili" ColumnName="Yetkili" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Baza" ColumnName="Baza" />
+                <ScalarProperty Name="il" ColumnName="il" />
+                <ScalarProperty Name="ilce" ColumnName="ilce" />
+                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblGorevDetaylar">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblGorevDetaylar">
+              <MappingFragment StoreEntitySet="TblGorevDetaylar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="isitehvilveren" ColumnName="isitehvilveren" />
+                <ScalarProperty Name="cavab" ColumnName="cavab" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblGorevler">
+            <EntityTypeMapping TypeName="DbisTakibModel.TblGorevler">
+              <MappingFragment StoreEntitySet="TblGorevler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsitehvilVeren" ColumnName="IsitehvilVeren" />
+                <ScalarProperty Name="IsitehvilAlan" ColumnName="IsitehvilAlan" />
+                <ScalarProperty Name="Veziyyet" ColumnName="Veziyyet" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="Tarix" ColumnName="Tarix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
